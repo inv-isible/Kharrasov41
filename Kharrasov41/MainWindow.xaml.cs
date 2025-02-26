@@ -26,10 +26,12 @@ namespace Kharrasov41
             MainFrame.Navigate(new ProductPage());
             Manager.MainFrame = MainFrame;
         }
+
         private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
             Manager.MainFrame.GoBack();
         }
+
         private void MainFrame_ContentRendered(object sender, EventArgs e)
         {
             if (MainFrame.CanGoBack)
