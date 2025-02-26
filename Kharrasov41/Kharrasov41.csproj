@@ -65,6 +65,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AuthPage.xaml.cs">
+      <DependentUpon>AuthPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Kharrasov41.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -89,6 +92,10 @@
       <DependentUpon>Kharrasov41.tt</DependentUpon>
     </Compile>
     <Page Include="AddEditPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AuthPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -181,9 +188,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Rec\logo.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Kharrasov41.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Kharrasov41.edmx</DependentUpon>
@@ -194,6 +198,7 @@
       <DependentUpon>Kharrasov41.edmx</DependentUpon>
       <LastGenOutput>Kharrasov41.cs</LastGenOutput>
     </Content>
+    <Resource Include="Rec\logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

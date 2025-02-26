@@ -12,10 +12,11 @@ namespace Kharrasov41
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+
     public partial class Kharrasov41Entities : DbContext
     {
         private static Kharrasov41Entities _context;
+
         public static Kharrasov41Entities GetContext()
         {
             if (_context == null)
@@ -23,13 +24,15 @@ namespace Kharrasov41
             return _context;
         }
         public Kharrasov41Entities()
-            : base("name=Kharrasov41Entities")
+            : base("name= Kharrasov41Entities")
         {
         }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
+
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<OrderProduct> OrderProduct { get; set; }
         public virtual DbSet<PickUpPoint> PickUpPoint { get; set; }

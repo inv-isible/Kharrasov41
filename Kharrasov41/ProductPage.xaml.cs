@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Kharrasov41;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,26 +20,59 @@ namespace Kharrasov41
     /// <summary>
     /// Логика взаимодействия для ProductPage.xaml
     /// </summary>
-public partial class ProductPage : Page
-{
-    List<Product> CurrentPageList = new List<Product>();
-    List<Product> TableList;
-    int CountPage;
-    int CurrentCountPage;
-
-    private int EveryPage { get; set; }
-    public ProductPage()
+    public partial class ProductPage : Page
     {
-        InitializeComponent();
-        var currentProducts = Kharrasov41Entities.GetContext().Product.ToList();
-        ProductListView.ItemsSource = currentProducts;
-        ComboBoxFilter.SelectedIndex = 0;
-        CurrentCountPage = TableList.Count;
-        EveryPages.Text = CurrentCountPage.ToString();
-        UpdateProduct();
+        List<Product> CurrentPageList = new List<Product>();
+        List<Product> TableList;
+        int CountPage;
+        int CurrentCountPage;
+        private User _user;
+        public ProductPage(User user)
+        {
 
-    }
-    private void UpdateProduct()
+            string login;
+            string role;
+            InitializeComponent();
+            var currentProducts = Kharrasov41Entities.GetContext().Product.ToList();
+            ProductListView.ItemsSource = currentProducts;
+
+            if (user != null)
+            {
+                login = user.UserSurname + " " + user.UserName + " " + user.UserPatronymic;
+                shw.Text = login;
+                switch (user.UserRole)
+                {
+                    case 1:
+                        role = "Клиент";
+                        break;
+                    case 2:
+                        role = "Менеджер";
+                        break;
+                    case 3:
+                        role = "Администратор";
+                        break;
+                    default:
+                        role = "Гость";
+                        break;
+
+                }
+            }
+            else
+            {
+                role = "Гость";
+            }
+
+            rolee.Text = role;
+
+
+            ComboBoxFilter.SelectedIndex = 0;
+            CurrentCountPage = TableList.Count;
+            EveryPages.Text = CurrentCountPage.ToString();
+            UpdateProduct();
+
+        }
+
+        private void UpdateProduct()
         {
             var currentProducts = Kharrasov41Entities.GetContext().Product.ToList();
 
@@ -74,21 +109,24 @@ public partial class ProductPage : Page
             TableList = currentProducts;
             ChangeText();
         }
-        private void TBoxSearch_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            UpdateProduct();
 
-        }
-        private void ComboBoxFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            UpdateProduct();
+            Manager.MainFrame.Navigate(new AddEditPage());
         }
-        private void RButtonBiggist_Checked(object sender, RoutedEventArgs e)
+
+        private void TBoxSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
             UpdateProduct();
         }
 
         private void RbutttonSmallist_Checked(object sender, RoutedEventArgs e)
+        {
+            UpdateProduct();
+        }
+
+        private void ComboBoxFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             UpdateProduct();
         }
@@ -99,5 +137,13 @@ public partial class ProductPage : Page
             CountPage = TableList.Count;
             currentPages.Text = CountPage.ToString();
         }
+
+        private void RButtonBiggist_Checked(object sender, RoutedEventArgs e)
+        {
+            UpdateProduct();
+        }
     }
 }
+
+
+
